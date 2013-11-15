@@ -1,0 +1,41 @@
+>>>>>popWin v1.0
+1.此版本为本Demo的初始版本。
+
+2.本Demo使用纯div+css+js书写，未使用任何图片。代码已进行过压缩处理，css文档只有1.5k，js文档只有1.45k。
+
+3.本Demo功能：
+	通过示例页面中的相应格式调用弹窗
+	弹窗出现时生成遮罩层屏蔽网页其他地方的点击
+	弹窗通过右上角的圆形按钮关闭
+	弹窗标题部分可以拖动
+	拖动区域限制于网页文档范围
+	弹窗内容区域自适应，可以添加任意html代码
+	弹窗位置自适应浏览器窗口大小
+
+4.基本数据：
+	弹窗最小宽度：200px
+	弹窗最大宽度：600px
+	弹窗最小高度：100px
+	弹窗最大高度：自适应
+
+5.本Domo使用方法：
+	1.在需要添加弹窗的页面<head>标签内添加如下代码
+	<link href="css/pop_style-1.0.min.css" rel="stylesheet" type="text/css" />    <!--//本Demo css文档-->
+	<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>    <!--//外链最新的jQuery库文件，如果机器没有联网，请链接本地jQuery库文件。-->
+	<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>    <!--//本地jQuery库文件。-->
+	<script src="js/pop_scripts-1.0.min.js" type="text/javascript"></script>    <!--//本Demo脚本文档，请务必将此句写在jQuery库调用语句的后面。-->
+	<script type="text/javascript" language="javascript">	<!--//调用弹窗脚本-->
+	$(function(){pop_win();});
+	</script>
+	2.在需要添加弹窗的页面<body>标签内任意位置添加<div id="mask"></div>    <!--//添加遮罩层。-->
+
+	3.在需要添加弹窗的页面<body>标签内任意位置添加如下代码
+	<div id="pop_win"><div id="close_pop"><div id="close_dot"></div></div><div id="pop_title">此处输入弹窗标题</div><input type="button" id="pop_title_mask" /><div id="pop_content">此处输入弹窗内容</div></div>    <!--//添加弹窗。-->
+
+	4.设置弹窗入口按钮class="pop_button"。
+
+6.备注：本Demo弹窗内容部分可以添加任何内容，包括任意的html代码。但是切记添加内容的宽度不要超过弹窗最大宽度。（可以在pop_style.css文档中修改#pop_win的max-width属性来修改弹窗最大宽度）。
+
+7.本Demo将会进行后续开发以适应更多的需求，有任何建议或者意见请联系我mail to:753456997@qq.com
+
+8.本Demo为非盈利产品，请勿作为商业用途。所有版权归Mis所有。
