@@ -12,6 +12,10 @@ It contains all imformation, functions and the way for use of every version.<br 
 
 预览(Preview)
 -----------
+popWin v2.1<br />
+[点击预览(Click here)](http://app.wutnews.net/demo_Mis/Demo-popWin-2.1.html)<br />
+popWin v2.0<br />
+[点击预览(Click here)](http://app.wutnews.net/demo_Mis/Demo-popWin-2.0.html)<br />
 popWin v1.0<br />
 [点击预览(Click here)](http://app.wutnews.net/demo_Mis/Demo-popWin-1.0.html)<br />
 
