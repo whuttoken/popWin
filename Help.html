@@ -1,3 +1,102 @@
+>>>>>popWin v2.1
+1.舍弃样式变量中的_maxHeight参数。
+2.修改了部分命名。
+3.修正了一个致命bug：
+	由于弹窗的生成方式类似于将入口按钮内部的文本信息复制进弹窗对象中，所以生成弹窗后，一个页面会出现两个
+
+相同的html文档部分。若该部分有用户命名的id，则会导致同一页面出现两个相同id。
+	改正方式：修改了生成窗口中填充弹窗内容的部分，在填充了内容后将按钮内部的信息销毁，在关闭弹窗后重新加
+
+入即可。
+4.添加了DIY弹窗定制功能，用户可以通过简单的设置让系统自行生成js代码。
+
+>>>>>popWin v2.0
+popWin实现功能：
+1.将页面中的一个<div>标签初始化为弹窗，并赋以默认css样式以及默认弹窗内容。
+2.一个页面中只能有一个弹窗层。（js脚本探测被多次调用返回错误信息）
+3.通过入口函数激活弹窗并显示，将弹窗内容以参数形式传入并重写弹窗。
+4.弹窗可以通过点击关闭按钮或者点击弹窗外遮罩层关闭。（设置布尔变量，可在初始化的时候由用户定义）
+5.弹窗title部分可以用以拖拽。（设置布尔变量，初始化时自定义）
+6.提供css选择器名称，可以由用户自定义css样式。
+7.浏览器resize时，重新初始化弹窗位置。
+
+以上第二条抛弃，通过反复创建层&销毁层，可以避免同一个页面出现两个弹窗层。
+
+1.js动态添加弹窗框架层和遮罩层，所用技术：jQuery中的appendTo()方法。
+	示例：
+	//在body最尾部添加<div />盒子
+	$('<div />',{
+	class:"test",
+	html: '<a href="">cityname</a>'
+	}).appendTo("body");
+
+2.关闭（销毁）弹窗，所用技术：jQuery中的fadeOut()方法（detach()方法）。
+
+3.显示弹窗，所用技术：jQuery中的fadeIn()方法。
+
+4.拖拽弹窗，所用技术：jQuery中的move()方法。
+
+
+本次开发利用OOP技术，将弹窗类封装。并舍弃css文档，将样式整合在js文档中动态生成。
+
+命名规范：
+	dWidth = $(document).width(); //可视文档宽度
+	dHeight = $(document).Height(); //可视文档宽度
+	sHeight = $(document).scrollTop(); //滚动卷去的文档上方区域高度
+popWin类
+成员变量：
+	_pWidth; //弹窗宽度
+	_pHeight; //弹窗高度
+	_cPoint = {x: ,y: }; //拖拽功能记录鼠标按下时的坐标
+	_wPoint = {x: ,y: }; //弹窗层左上角坐标
+	_nPoint = {x: ,y: }; //鼠标移动后的点坐标
+	_isPress = false; //判断鼠标左键是否按下，从而是否运行移动函数
+初始化样式：
+	_minWidth = 200px;
+	_maxWidth = 600px;
+	_minHeight = 200px;
+	_maxHeight = auto;   
+	_bgColor = #fefefe;
+	_maskColor = rgba(255,255,255,0.5);
+	_fontColor = #000;
+	_popShadow = true;
+	_popShadowColor = #ccc;
+	_popRadius = false;
+	_popRadiusValue = 3px;
+	_titleBorder = 1px dotted #ccc;
+	_enableMove = true;	
+方法：
+	popWin();无参数构造函数
+	popWin(custom); //带参数的构造函数
+		其中custom = {
+			minWidth:200px;
+			maxWidth:600px;
+			minHeight:200px;
+			maxHeight:auto;
+			bgColor:#fefefe;
+			maskColor:rgba(255,255,255,0.5);
+			fontColor:#000;
+			popShadow:true;
+			popShadowColor:#ccc;
+			popRadius:false;
+			popRadiusValue:3px;
+			titleBorder:1px dotted #ccc;
+			enableMove:true;
+		}
+	setPop(); //初始化弹窗位置
+	createPop(); //创建弹窗
+	openPop(); //打开弹窗
+	closePop(); //关闭弹窗
+	movePop(); //移动弹窗
+	destroyPop(); //销毁弹窗
+	fillPop(); //填充弹窗内容
+
+按钮在html文档中的表达方法，子div中第一个中填写弹窗标题，第二个填写弹窗内容。
+<div class="pop_button">
+	<div>title</div>
+	<div>content</div>
+</div>
+
 >>>>>popWin v1.0
 1.此版本为本Demo的初始版本。
 
@@ -21,20 +120,28 @@
 5.本Domo使用方法：
 	1.在需要添加弹窗的页面<head>标签内添加如下代码
 	<link href="css/pop_style-1.0.min.css" rel="stylesheet" type="text/css" />    <!--//本Demo css文档-->
-	<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>    <!--//外链最新的jQuery库文件，如果机器没有联网，请链接本地jQuery库文件。-->
+	<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>    <!--//外链最新的jQuery库文件，如
+
+果机器没有联网，请链接本地jQuery库文件。-->
 	<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>    <!--//本地jQuery库文件。-->
-	<script src="js/pop_scripts-1.0.min.js" type="text/javascript"></script>    <!--//本Demo脚本文档，请务必将此句写在jQuery库调用语句的后面。-->
+	<script src="js/pop_scripts-1.0.min.js" type="text/javascript"></script>    <!--//本Demo脚本文档，请务必将此句写在
+
+jQuery库调用语句的后面。-->
 	<script type="text/javascript" language="javascript">	<!--//调用弹窗脚本-->
 	$(function(){pop_win();});
 	</script>
 	2.在需要添加弹窗的页面<body>标签内任意位置添加<div id="mask"></div>    <!--//添加遮罩层。-->
 
 	3.在需要添加弹窗的页面<body>标签内任意位置添加如下代码
-	<div id="pop_win"><div id="close_pop"><div id="close_dot"></div></div><div id="pop_title">此处输入弹窗标题</div><input type="button" id="pop_title_mask" /><div id="pop_content">此处输入弹窗内容</div></div>    <!--//添加弹窗。-->
+	<div id="pop_win"><div id="close_pop"><div id="close_dot"></div></div><div id="pop_title">此处输入弹窗标题
+
+</div><input type="button" id="pop_title_mask" /><div id="pop_content">此处输入弹窗内容</div></div>    <!--//添加弹窗。-->
 
 	4.设置弹窗入口按钮class="pop_button"。
 
-6.备注：本Demo弹窗内容部分可以添加任何内容，包括任意的html代码。但是切记添加内容的宽度不要超过弹窗最大宽度。（可以在pop_style.css文档中修改#pop_win的max-width属性来修改弹窗最大宽度）。
+6.备注：本Demo弹窗内容部分可以添加任何内容，包括任意的html代码。但是切记添加内容的宽度不要超过弹窗最大宽度。
+
+（可以在pop_style.css文档中修改#pop_win的max-width属性来修改弹窗最大宽度）。
 
 7.本Demo将会进行后续开发以适应更多的需求，有任何建议或者意见请联系我mail to:753456997@qq.com
 
